@@ -15,6 +15,14 @@ const testCasesChangePLNtoUSD = [
   { amount: 40, change: 'PLN 40.00 = $11.43' },
 ];
 
+const testCasesChangePLNtoPLN = [
+  { amount: 100, change: 'PLN 100.00 = PLN 100.00' },
+];
+
+const testCasesChangeUSDtoUSD = [
+  { amount: 100, change: '$100.00 = $100.00' },
+];
+
 describe('Component ResultBox', () => {
   it('should render without crashing', () => {
     render(<ResultBox from="PLN" to="USD" amount={100} />);
@@ -41,6 +49,38 @@ describe('Component ResultBox', () => {
 
       // render component
       render(<ResultBox from="PLN" to="USD" amount={testObj.amount} />);
+
+      // find elements
+      const output = screen.getByTestId('output');
+      expect(output).toHaveTextContent(testObj.change);
+      // unmount component
+      cleanup()
+
+    }
+  });
+
+  it('should render proper info about conversion when PLN -> PLN', () => {
+
+    for (const testObj of testCasesChangePLNtoPLN) {
+
+      // render component
+      render(<ResultBox from="PLN" to="PLN" amount={testObj.amount} />);
+
+      // find elements
+      const output = screen.getByTestId('output');
+      expect(output).toHaveTextContent(testObj.change);
+      // unmount component
+      cleanup()
+
+    }
+  });
+
+  it('should render proper info about conversion when USD -> USD', () => {
+
+    for (const testObj of testCasesChangeUSDtoUSD) {
+
+      // render component
+      render(<ResultBox from="USD" to="USD" amount={testObj.amount} />);
 
       // find elements
       const output = screen.getByTestId('output');
