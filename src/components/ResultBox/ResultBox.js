@@ -4,7 +4,6 @@ import { convertPLNToUSD } from './../../utils/convertPLNToUSD';
 import { formatAmountInCurrency } from './../../utils/formatAmountInCurrency';
 import { useMemo } from 'react';
 import styles from './ResultBox.module.scss';
-
 const ResultBox = ({ from, to, amount }) => {
 
   const convertedAmount = useMemo(() => {
@@ -20,12 +19,11 @@ const ResultBox = ({ from, to, amount }) => {
       {formattedAmount} = {convertedAmount}
     </div>
   );
-};
 
+};
 ResultBox.propTypes = {
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
 }
-
 export default ResultBox;

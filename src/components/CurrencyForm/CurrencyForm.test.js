@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import CurrencyForm from './CurrencyForm';
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
-
+import { cleanup } from '@testing-library/react';
 
 const testCases = [
   { amount: '100', from: 'PLN', to: 'USD' },
@@ -12,11 +12,12 @@ const testCases = [
 ];
 
 describe('Component CurrencyForm', () => {
-  for (const testObj of testCases) {
 
-    it('should render without crashing', () => {
-      render(<CurrencyForm action={() => { }} />);
-    });
+
+  it('should render without crashing', () => {
+    render(<CurrencyForm action={() => { }} />);
+  });
+  for (const testObj of testCases) {
     it('should run action callback with proper data on form submit', () => {
 
 
@@ -28,7 +29,7 @@ describe('Component CurrencyForm', () => {
       // find “convert” button
       const submitButton = screen.getByText('Convert');
 
-      // find fields elems
+      // find fields elements
       const amountField = screen.getByTestId('amount');
       const fromField = screen.getByTestId('from-select');
       const toField = screen.getByTestId('to-select');
@@ -47,6 +48,8 @@ describe('Component CurrencyForm', () => {
       expect(action).toHaveBeenCalledTimes(1);
       expect(action).toHaveBeenCalledWith({ amount: Number(testObj.amount), from: (testObj.from), to: (testObj.to) });
 
+      // unmount component
+      cleanup()
     });
 
   }
