@@ -32,6 +32,16 @@ const testCasesReturnWrongValueUSDtoPLN = [
   { amount: -40, change: 'Wrong value...' },
 ];
 
+const testCasesReturnWrongValuePLNtoPLN = [
+  { amount: -100, change: 'Wrong value...' },
+  { amount: -40, change: 'Wrong value...' },
+];
+
+const testCasesReturnWrongValueUSDtoUSD = [
+  { amount: -100, change: 'Wrong value...' },
+  { amount: -40, change: 'Wrong value...' },
+];
+
 const testCasesReturnZero = [
   { amount: 0, change: 'Wrong value...' },
   { amount: 0, change: 'Wrong value...' },
@@ -131,6 +141,38 @@ describe('Component ResultBox', () => {
 
       // render component
       render(<ResultBox from="USD" to="PLN" amount={testObj.amount} />);
+
+      // find elements
+      const output = screen.getByTestId('output');
+      expect(output).toHaveTextContent(testObj.change);
+      // unmount component
+      cleanup()
+
+    }
+  });
+
+  it('should return Wrong value... when amount in conversion PLN => PLN is smaller than 0', () => {
+
+    for (const testObj of testCasesReturnWrongValuePLNtoPLN) {
+
+      // render component
+      render(<ResultBox from="PLN" to="PLN" amount={testObj.amount} />);
+
+      // find elements
+      const output = screen.getByTestId('output');
+      expect(output).toHaveTextContent(testObj.change);
+      // unmount component
+      cleanup()
+
+    }
+  });
+
+  it('should return Wrong value... when amount in conversion USD => USD is smaller than 0', () => {
+
+    for (const testObj of testCasesReturnWrongValueUSDtoUSD) {
+
+      // render component
+      render(<ResultBox from="USD" to="USD" amount={testObj.amount} />);
 
       // find elements
       const output = screen.getByTestId('output');
