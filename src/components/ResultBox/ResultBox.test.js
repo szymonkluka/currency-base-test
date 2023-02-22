@@ -23,8 +23,8 @@ const testCasesChangeUSDtoUSD = [
 ];
 
 const testCasesReturnErrorPLNtoUSD = [
-  { amount: -100, change: 'Wrong value' },
-  { amount: -40, change: 'Wrong value' },
+  { amount: -100, change: 'Wrong value...' },
+  { amount: -40, change: 'Wrong value...' },
 ];
 
 
@@ -89,6 +89,7 @@ describe('Component ResultBox', () => {
 
       // find elements
       const output = screen.getByTestId('output');
+
       expect(output).toHaveTextContent(testObj.change);
       // unmount component
       cleanup()
@@ -105,6 +106,7 @@ describe('Component ResultBox', () => {
 
       // find elements
       const output = screen.getByTestId('output');
+      screen.debug();
       expect(output).toHaveTextContent(testObj.change);
       // unmount component
       cleanup()

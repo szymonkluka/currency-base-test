@@ -16,9 +16,9 @@ const ResultBox = ({ from, to, amount }) => {
   if (amount < 0) {
     return (
       <div className={styles.result} data-testid="output">
-        return{
-          'Wrong value'
-        }
+
+        Wrong value...
+
       </div>
     )
   }
