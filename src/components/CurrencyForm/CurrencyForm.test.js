@@ -10,6 +10,7 @@ const testCases = [
   { amount: '345', from: 'USD', to: 'PLN' },
 ];
 
+
 describe('Component CurrencyForm', () => {
 
   it('should render without crashing', () => {

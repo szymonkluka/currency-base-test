@@ -22,10 +22,22 @@ const testCasesChangeUSDtoUSD = [
   { amount: 144, change: '$144.00 = $144.00' },
 ];
 
-const testCasesReturnErrorPLNtoUSD = [
+const testCasesReturnWrongValuePLNtoUSD = [
   { amount: -100, change: 'Wrong value...' },
   { amount: -40, change: 'Wrong value...' },
 ];
+
+const testCasesReturnWrongValueUSDtoPLN = [
+  { amount: -100, change: 'Wrong value...' },
+  { amount: -40, change: 'Wrong value...' },
+];
+
+const testCasesReturnZero = [
+  { amount: 0, change: 'Wrong value...' },
+  { amount: 0, change: 'Wrong value...' },
+];
+
+
 
 
 describe('Component ResultBox', () => {
@@ -97,16 +109,47 @@ describe('Component ResultBox', () => {
     }
   });
 
-  it('should return error when amount in conversion PLN => USD is smaller than 0', () => {
+  it('should return Wrong value... when amount in conversion PLN => USD is smaller than 0', () => {
 
-    for (const testObj of testCasesReturnErrorPLNtoUSD) {
+    for (const testObj of testCasesReturnWrongValuePLNtoUSD) {
 
       // render component
       render(<ResultBox from="PLN" to="USD" amount={testObj.amount} />);
 
       // find elements
       const output = screen.getByTestId('output');
-      screen.debug();
+      expect(output).toHaveTextContent(testObj.change);
+      // unmount component
+      cleanup()
+
+    }
+  });
+
+  it('should return Wrong value... when amount in conversion USD => PLN is smaller than 0', () => {
+
+    for (const testObj of testCasesReturnWrongValueUSDtoPLN) {
+
+      // render component
+      render(<ResultBox from="USD" to="PLN" amount={testObj.amount} />);
+
+      // find elements
+      const output = screen.getByTestId('output');
+      expect(output).toHaveTextContent(testObj.change);
+      // unmount component
+      cleanup()
+
+    }
+  });
+
+  it('should return Wrong value... when amount in conversion is equal 0', () => {
+
+    for (const testObj of testCasesReturnZero) {
+
+      // render component
+      render(<ResultBox from="USD" to="PLN" amount={testObj.amount} />);
+
+      // find elements
+      const output = screen.getByTestId('output');
       expect(output).toHaveTextContent(testObj.change);
       // unmount component
       cleanup()
